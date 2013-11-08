@@ -1,0 +1,27 @@
+{
+  "name": "proxy-mirror",
+  "version": "0.0.0",
+  "description": "A fiddler like http debugging tool built in node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/miensol/proxy-mirror.git"
+  },
+  "keywords": [
+    "proxy",
+    "http",
+    "debug"
+  ],
+  "author": "Piotr Mionskowski",
+  "license": "Apache License 2",
+  "bugs": {
+    "url": "https://github.com/miensol/proxy-mirror/issues"
+  },
+  "dependencies": {
+    "http-proxy": "~0.10.3",
+    "connect": "~2.11.0"
+  }
+}
