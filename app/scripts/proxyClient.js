@@ -17,6 +17,7 @@
             var sessionObject = sessionHash[rawSession.id];
             if(sessionObject){
                 sessionObject.state = 'end';
+                sessionObject.response = rawSession.response;
             }
         });
     };
