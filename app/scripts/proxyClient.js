@@ -10,7 +10,14 @@
 
         proxy.on('session.start', function(session){
             sessionHash[session.id] = session;
+            session.state = 'start';
             that.sessions.push(session);
+        });
+        proxy.on('session.end', function(rawSession){
+            var sessionObject = sessionHash[rawSession.id];
+            if(sessionObject){
+                sessionObject.state = 'end';
+            }
         });
     };
 
@@ -23,7 +30,10 @@
 
         socket.on('session.start', function(session){
             that.trigger('session.start', [session]);
-        })
+        });
+        socket.on('session.end', function(session){
+            that.trigger('session.end', [session]);
+        });
     };
 
     proxyClient.service('socket', function ($rootScope) {

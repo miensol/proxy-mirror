@@ -58,6 +58,7 @@ module.exports = function (grunt) {
             },
             dev: {
                 options: {
+                    serverreload: true,
                     bases: [
                         '.tmp',
                         'test',
