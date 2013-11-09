@@ -53,7 +53,7 @@ describe('ProxyServer', function(){
                 });
             });
 
-            it('should skip requests on proxy-morror web application port',function(done){
+            it('should skip requests to proxy-morror web application',function(done){
                 request.get('http://localhost:8889/', function(){
                     sessions.should.have.length(0);
                     done();
