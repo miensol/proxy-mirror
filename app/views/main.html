@@ -1,5 +1,22 @@
-Session List
-
-<div ng-repeat="session in sessions">
-    {{session.id}} - {{session.state}} - {{session.request.url}} - {{session.response.statusCode}}
+<div class="row">
+    <div class="col-lg-5 col-md-5">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Status</th>
+                <th>Url</th>
+                <th>Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="session in sessions">
+                <td>{{session.id}}</td>
+                <td>{{session.response.statusCode}}</td>
+                <td>{{session.request.url}}</td>
+                <td>{{session.response.contentType}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

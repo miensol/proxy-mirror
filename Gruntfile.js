@@ -58,7 +58,6 @@ module.exports = function (grunt) {
             },
             dev: {
                 options: {
-                    serverreload: true,
                     bases: [
                         '.tmp',
                         'test',
@@ -201,18 +200,18 @@ module.exports = function (grunt) {
                 assetsDirs: ['<%= yeoman.dist %>']
             }
         },
-        imagemin: {
-            dist: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: '<%= yeoman.app %>/images',
-                        src: '{,*/}*.{png,jpg,jpeg}',
-                        dest: '<%= yeoman.dist %>/images'
-                    }
-                ]
-            }
-        },
+//        imagemin: {
+//            dist: {
+//                files: [
+//                    {
+//                        expand: true,
+//                        cwd: '<%= yeoman.app %>/images',
+//                        src: '{,*/}*.{png,jpg,jpeg}',
+//                        dest: '<%= yeoman.dist %>/images'
+//                    }
+//                ]
+//            }
+//        },
         svgmin: {
             dist: {
                 files: [
@@ -297,7 +296,7 @@ module.exports = function (grunt) {
         },
         concurrent: {
             server: [
-                'coffee:dist',
+//                'coffee:dist',
                 'compass:server',
                 'copy:styles'
             ],
