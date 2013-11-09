@@ -2,3 +2,15 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 
 @import 'sass-bootstrap/lib/bootstrap';
 
+.center {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.panel-container {
+  height: 600px;
+}
+
+.half-height {
+  height: 50%;
+}
