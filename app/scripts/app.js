@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('proxyMirrorApp', [
+  'proxyMirrorApp.proxyClient',
   'ngCookies',
   'ngResource',
   'ngSanitize',

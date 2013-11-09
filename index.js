@@ -1,5 +1,12 @@
-var ProxyServer = require('./proxy.js');
+var ProxyMirrorRun = require('./lib/run.js');
 
-var proxy = new ProxyServer();
+var run = new ProxyMirrorRun();
 
-proxy.start();
+console.log('proxy-mirror starting');
+run.start(function(){
+    console.log('proxy-mirror started');
+});
+
+module.exports = run.httpServer;
+
+

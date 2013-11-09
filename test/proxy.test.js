@@ -1,6 +1,6 @@
 var should = require('should');
 var request = require('request').defaults({'proxy':'http://localhost:8888'});
-var ProxyServer = require('../proxy.js');
+var ProxyServer = require('../lib/proxy.js');
 
 describe('ProxyServer', function(){
     var proxyServer = null;
