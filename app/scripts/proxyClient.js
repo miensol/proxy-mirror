@@ -2,22 +2,41 @@
 
     var proxyClient = angular.module('proxyMirrorApp.proxyClient', []);
 
+    var Session = function (id){
+        this.id = id;
+        this.state = 'start';
+        this.request = {};
+        this.response = {};
+        this.started = function(sessionMsg){
+            this.request = sessionMsg.request;
+        };
+        this.ended = function(sessionMsg){
+            this.response = sessionMsg.response;
+            this.response.contentType = this.niceContentType();
+        };
+
+        this.niceContentType = function(){
+            var fullContentType = this.response.headers['content-type'] || '';
+            return fullContentType.split(';')[0] || '';
+        };
+    };
+
     var SessionStorage = function (proxy){
         var that = this,
             sessionHash = {};
         this.proxy = proxy;
         this.sessions = [];
 
-        proxy.on('session.start', function(session){
+        proxy.on('session.start', function(sessionMsg){
+            var session = new Session(sessionMsg.id);
             sessionHash[session.id] = session;
-            session.state = 'start';
+            session.started(sessionMsg);
             that.sessions.push(session);
         });
-        proxy.on('session.end', function(rawSession){
-            var sessionObject = sessionHash[rawSession.id];
-            if(sessionObject){
-                sessionObject.state = 'end';
-                sessionObject.response = rawSession.response;
+        proxy.on('session.end', function(sessionMsg){
+            var session = sessionHash[sessionMsg.id];
+            if(session){
+                session.ended(sessionMsg);
             }
         });
     };
