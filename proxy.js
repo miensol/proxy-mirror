@@ -1,53 +1,117 @@
 var httpProxy = require('http-proxy'),
     connect = require('connect'),
     logger = connect.logger('dev'),
-    events = require('events');
+    EventEmitter = require('events').EventEmitter,
+    util = require('util');
 
-var Session = function(sessionId, req, res){
+var Session = function (sessionId, req, res) {
     req._uniqueSessionId = res._uniqueSessionId = sessionId;
+    this.request = req;
+
+    this.toJSON = function(){
+        return JSON.stringify({
+           request: {
+               url: req.url,
+               headers: req.headers,
+               hostname: req.hostname
+           },
+           response: res
+        });
+    };
+};
+Session.extractSessionId = function (req) {
+    return req._uniqueSessionId;
 };
 
-var SessionStorage = function(){
+var SessionStorage = function () {
     var sessionHash = {},
         sessionIdCounter = 0,
-        nextId = function(){
+        nextId = function () {
             sessionIdCounter += 1;
         };
 
-    this.startSession = function(req,res){
+    this.startSession = function (req, res) {
         var sessionId = nextId(), session;
-        sessionHash[sessionId] = session = new Session(sessionId, req,res);
+        sessionHash[sessionId] = session = new Session(sessionId, req, res);
+        return session;
+    };
+
+    this.popSession = function (req, res) {
+        var sessionId = Session.extractSessionId(req),
+            session = sessionHash[sessionId];
+
+        delete sessionHash[sessionId];
+
         return session;
     };
 
 };
 
 
-var ProxyServer = module.exports = function(){
-    events.EventEmitter.call(this);
+var ProxyServer = function ProxyServer() {
+    EventEmitter.call(this);
 
     var sessionStorage = new SessionStorage(),
         proxyServer = httpProxy.createServer(function (req, res, proxy) {
-        var headersHost = req.headers['host'],
-            hostAndPort = headersHost.split(':'),
-            targetHost = hostAndPort[0],
-            targetPort = parseInt(hostAndPort[1]) || 80;
-        req.originalUrl = req.url;
-        logger(req, res, function () {
-            proxy.proxyRequest(req, res, {
-                host: targetHost,
-                port: targetPort
-            });
-        });
-    });
+            var headersHost = req.headers['host'],
+                hostAndPort = headersHost.split(':'),
+                targetHost = hostAndPort[0],
+                targetPort = parseInt(hostAndPort[1]) || 80;
+            req.originalUrl = req.url;
+            logger(req, res, function () {
+                proxy.proxyRequest(req, res, {
+                    host: targetHost,
+                    port: targetPort
+                });
+            })
+        }), proxy = proxyServer.proxy,
+        listening = false,
+        requestToProxyMirrorWebApp = function (req) {
+            return req.url === 'http://localhost:8889/' || req.originalUrl === 'http://localhost:8889/';
+        };
 
-    this.startSession = function(req,res){
+    this.startSession = function (req, res) {
+        if (requestToProxyMirrorWebApp(req)) {
+            return;
+        }
         var session = sessionStorage.startSession(req, res);
 
-        this.emit('start', session);
+        this.emit('session.start', session);
     };
-    this.start = function(){
-        proxyServer.on('start', this.startSession.bind(this));
-        proxyServer.listen(8888);
+    this.endSession = function (req, res) {
+        if (requestToProxyMirrorWebApp(req)) {
+            return;
+        }
+        var session = sessionStorage.popSession(req, res);
+        if(session){
+            this.emit('session.end', session);
+        }
+    };
+    this.start = function (done) {
+        done = done || function () {
+        };
+        proxy.on('start', this.startSession.bind(this));
+        proxy.on('end', this.endSession.bind(this));
+        proxyServer.listen(8888, function () {
+            listening = true;
+            done();
+        });
+    };
+
+    this.stop = function (done) {
+        done = done || function () {
+        };
+        proxy.removeAllListeners('start');
+        proxy.removeAllListeners('end');
+        if (listening) {
+            proxyServer.close(function () {
+                listening = false;
+                done();
+            });
+        }
     };
 };
+util.inherits(ProxyServer, EventEmitter);
+
+
+module.exports = ProxyServer;

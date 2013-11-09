@@ -2,11 +2,11 @@ var ProxyServer = require('./proxy.js');
 
 var proxy = new ProxyServer();
 
-proxy.on('start', function(session){
-    console.log('proxy.start', session);
+proxy.on('session.start', function(session){
+    console.log('session.start', session);
 });
-proxy.on('end', function(session){
-    console.log('proxy.end', session);
+proxy.on('session.end', function(session){
+    console.log('session.end', session);
 });
 
 proxy.start();
