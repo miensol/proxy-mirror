@@ -8,25 +8,38 @@
                 <th>Status</th>
                 <th>Url</th>
                 <th>Type</th>
+                <th>Method</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="session in sessions">
+            <tr ng-repeat="session in sessions"
+                ng-click="selectSession(session)">
                 <td>{{session.id}}</td>
                 <td>{{session.response.statusCode}}</td>
                 <td>{{session.request.url}}</td>
                 <td>{{session.response.contentType}}</td>
+                <td>{{session.request.method}}</td>
             </tr>
             </tbody>
         </table>
     </div>
     <div class="col-lg-7 col-md-7">
         <div class="panel-container">
-            <div class="row half-height">
+            <div class="row half-height panel">
                 <h3 class="center">Request</h3>
+                <div class="panel-body">
+                    <div ng-repeat="(key, value) in request.headers">
+                        {{key}}: {{value}}
+                    </div>
+                </div>
             </div>
             <div class="row half-height">
                 <h3 class="center">Response</h3>
+                <div class="panel-body">
+                    <div ng-repeat="(key, value) in response.headers">
+                        {{key}}: {{value}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
