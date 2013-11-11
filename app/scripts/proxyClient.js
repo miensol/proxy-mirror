@@ -33,6 +33,11 @@
             Headers.call(this.response);
         };
 
+        this.requestEnded = function(sessionMsg){
+            this.request = sessionMsg.request;
+            Headers.call(this.request);
+        };
+
         this.niceContentType = function () {
             var fullContentType = this.response.headers['content-type'] || '';
             return fullContentType.split(';')[0] || '';
@@ -52,6 +57,12 @@
             session.started(sessionMsg);
             that.sessions.push(session);
         });
+        proxy.on('session.request.end', function(sessionMsg){
+            var session = sessionHash[sessionMsg.id];
+            if(session){
+                session.requestEnded(sessionMsg);
+            }
+        });
         proxy.on('session.end', function (sessionMsg) {
             var session = sessionHash[sessionMsg.id];
             if (session) {
@@ -60,7 +71,11 @@
         });
 
         this.selectSession = function(session){
-            this.selectedSession = session;
+            if(this.selectedSession != session){
+                this.selectedSession = session;
+                return true;
+            }
+            return false;
         };
 
     };
@@ -71,12 +86,10 @@
         socket.on('connect', function () {
             that.state = 'connected';
         });
-
-        socket.on('session.start', function (session) {
-            that.trigger('session.start', [session]);
-        });
-        socket.on('session.end', function (session) {
-            that.trigger('session.end', [session]);
+        ['session.start','session.request.end', 'session.end'].forEach(function(eventName){
+            socket.on(eventName, function (session) {
+                that.trigger(eventName, [session]);
+            });
         });
     };
 

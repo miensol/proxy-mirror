@@ -31,9 +31,11 @@
                     <div ng-repeat="(key, value) in request.headers">
                         {{key}}: {{value}}
                     </div>
+                    <br />
+                    <pre>{{request.body}}</pre>
                 </div>
             </div>
-            <div class="row half-height">
+            <div class="row half-height panel">
                 <h3 class="center">Response</h3>
                 <div class="panel-body">
                     <div ng-repeat="(key, value) in response.headers">

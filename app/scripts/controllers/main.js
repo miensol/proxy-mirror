@@ -4,6 +4,7 @@
 
     var RequestViewModel = function(request) {
         this.headers = request.uniformHeaders();
+        this.body = request.body;
     };
 
     var ResponseViewModel = function(response){
@@ -15,9 +16,10 @@
         $scope.sessions = sessionStorage.sessions;
 
         $scope.selectSession = function(session){
-            sessionStorage.selectSession(session);
-            $scope.request = new RequestViewModel(session.request);
-            $scope.response = new ResponseViewModel(session.response);
+            if(sessionStorage.selectSession(session)){
+                $scope.request = new RequestViewModel(session.request);
+                $scope.response = new ResponseViewModel(session.response);
+            }
         };
     });
 
