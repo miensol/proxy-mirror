@@ -4,7 +4,8 @@
   "dependencies": {
     "http-proxy": "~0.10.3",
     "socket.io": "~0.9.16",
-    "express": "~3.4.4"
+    "express": "~3.4.4",
+    "iconv": "~2.0.7"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

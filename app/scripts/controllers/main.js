@@ -8,6 +8,7 @@
 
     var ResponseViewModel = function(response){
         this.headers = response.uniformHeaders();
+        this.body = response.body;
     };
 
     app.controller('MainCtrl', function ($scope, sessionStorage) {
