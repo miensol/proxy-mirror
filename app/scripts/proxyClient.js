@@ -23,17 +23,17 @@
         this.state = 'start';
         this.request = {};
         this.response = {};
-        this.started = function (sessionMsg) {
+        this.requestStart = function (sessionMsg) {
             this.request = sessionMsg.request;
             Headers.call(this.request);
         };
-        this.ended = function (sessionMsg) {
+        this.responseEnd = function (sessionMsg) {
             this.response = sessionMsg.response;
             this.response.contentType = this.niceContentType();
             Headers.call(this.response);
         };
 
-        this.requestEnded = function(sessionMsg){
+        this.requestEnd = function(sessionMsg){
             this.request = sessionMsg.request;
             Headers.call(this.request);
         };
@@ -51,22 +51,22 @@
         this.sessions = [];
         this.selectedSession = null;
 
-        proxy.on('session.start', function (sessionMsg) {
+        proxy.on('session.request.start', function (sessionMsg) {
             var session = new Session(sessionMsg.id);
             sessionHash[session.id] = session;
-            session.started(sessionMsg);
+            session.requestStart(sessionMsg);
             that.sessions.push(session);
         });
         proxy.on('session.request.end', function(sessionMsg){
             var session = sessionHash[sessionMsg.id];
             if(session){
-                session.requestEnded(sessionMsg);
+                session.requestEnd(sessionMsg);
             }
         });
-        proxy.on('session.end', function (sessionMsg) {
+        proxy.on('session.response.end', function (sessionMsg) {
             var session = sessionHash[sessionMsg.id];
             if (session) {
-                session.ended(sessionMsg);
+                session.responseEnd(sessionMsg);
             }
         });
 
@@ -86,7 +86,7 @@
         socket.on('connect', function () {
             that.state = 'connected';
         });
-        ['session.start','session.request.end', 'session.end'].forEach(function(eventName){
+        ['session.request.start','session.request.end', 'session.response.end'].forEach(function(eventName){
             socket.on(eventName, function (session) {
                 that.trigger(eventName, [session]);
             });

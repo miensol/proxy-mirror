@@ -8,7 +8,30 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
-    require('load-grunt-tasks')(grunt);
+//    require('load-grunt-tasks')(grunt);
+    ['grunt-autoprefixer',
+        'grunt-concurrent',
+        'grunt-contrib-clean',
+        'grunt-contrib-coffee',
+        'grunt-contrib-compass',
+        'grunt-contrib-concat',
+        'grunt-contrib-connect',
+        'grunt-contrib-copy',
+        'grunt-contrib-cssmin',
+        'grunt-contrib-htmlmin',
+//        'grunt-contrib-imagemin',
+        'grunt-contrib-jshint',
+        'grunt-contrib-uglify',
+        'grunt-contrib-watch',
+        'grunt-google-cdn',
+        'grunt-ngmin',
+        'grunt-rev',
+        'grunt-svgmin',
+        'grunt-usemin',
+        'grunt-karma',
+        'grunt-express'].forEach(function(name){
+           grunt.loadNpmTasks(name)
+        });
     require('time-grunt')(grunt);
 
     grunt.initConfig({
