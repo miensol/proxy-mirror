@@ -1,14 +1,14 @@
 <div class="row">
-    <div class="col-lg-5 col-md-5">
-        <h3 class="center">Sessions</h3>
-        <table class="table">
+    <section class="col-lg-5 col-md-5 sessions-panel">
+        <h3 class="center container-height">Sessions</h3>
+        <table class="table panel-body">
             <thead>
             <tr>
                 <th>#</th>
                 <th>Status</th>
                 <th>Url</th>
-                <th>Type</th>
                 <th>Method</th>
+                <th>Type</th>
             </tr>
             </thead>
             <tbody>
@@ -17,37 +17,35 @@
                 <td>{{session.id}}</td>
                 <td>{{session.response.statusCode}}</td>
                 <td>{{session.request.url}}</td>
-                <td>{{session.response.contentType}}</td>
                 <td>{{session.request.method}}</td>
+                <td>{{session.response.contentType}}</td>
             </tr>
             </tbody>
         </table>
-    </div>
-    <div class="col-lg-7 col-md-7">
-        <div class="panel-container">
-            <div class="row half-height">
-                <h3 class="center">Request</h3>
-                <div>
-                    <div ng-repeat="(key, value) in request.headers">
-                        {{key}}: {{value}}
-                    </div>
-                    <br />
-                    <pre ng-show="request.bodyAsString">{{request.bodyAsString}}</pre>
+    </section>
+    <section class="col-lg-7 col-md-7 details-panel">
+        <div class="row half-height">
+            <h3 class="center panel-header">Request</h3>
+            <div class="panel-body">
+                <div ng-repeat="(key, value) in request.headers">
+                    {{key}}: {{value}}
                 </div>
+                <br/>
+                <pre ng-show="request.bodyAsString">{{request.bodyAsString}}</pre>
             </div>
-            <div class="row half-height">
-                <h3 class="center">Response</h3>
-                <div>
-                    <div ng-repeat="(key, value) in response.headers">
-                        {{key}}: {{value}}
-                    </div>
-                    <br />
-                    <pre ng-show="response.bodyAsString">{{response.bodyAsString}}</pre>
-                    <div ng-show="response.displayAsIframe">
-                        <iframe ng-src="{{response.iframeSrc}}"></iframe>
-                    </div>
+        </div>
+        <div class="row half-height">
+            <h3 class="center panel-header">Response</h3>
+            <div class="panel-body">
+                <div ng-repeat="(key, value) in response.headers">
+                    {{key}}: {{value}}
+                </div>
+                <br/>
+                <pre ng-show="response.bodyAsString">{{response.bodyAsString}}</pre>
+                <div ng-show="response.displayAsIframe">
+                    <iframe ng-src="{{response.iframeSrc}}"></iframe>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </div>

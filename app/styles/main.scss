@@ -6,17 +6,49 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
   margin: 0 auto;
   text-align: center;
 }
-
-.panel-container {
-  height: 600px;
-}
-
-.half-height {
-  height: 50%;
-}
-
 iframe {
   width: 100%;
   height: 100%;
   border: none;
+}
+
+$main-panel-height: 800px;
+$header-height: 26px;
+
+.panel-body {
+  overflow: auto;
+}
+
+.sessions-panel {
+  $panel-height: $main-panel-height/3;
+  height: $panel-height;
+  .panel-body {
+    height: $panel-height - $header-height;
+  }
+}
+.details-panel {
+  $panel-height: $main-panel-height*2/3;
+  height: $panel-height;
+  .panel-body {
+    height: $panel-height/2 - $header-height;
+  }
+}
+.panel-header {
+  height: $header-height;
+}
+
+@media (min-width: $screen-md-min)  {
+  .sessions-panel {
+    height: $main-panel-height;
+    .panel-body {
+      height: $main-panel-height - $header-height;
+    }
+  }
+  .details-panel {
+    $panel-height:$main-panel-height/2;
+    height: $panel-height;
+    .panel-body {
+      height: $panel-height - $header-height;
+    }
+  }
 }
