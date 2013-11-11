@@ -25,9 +25,9 @@
     </div>
     <div class="col-lg-7 col-md-7">
         <div class="panel-container">
-            <div class="row half-height panel">
+            <div class="row half-height">
                 <h3 class="center">Request</h3>
-                <div class="panel-body">
+                <div>
                     <div ng-repeat="(key, value) in request.headers">
                         {{key}}: {{value}}
                     </div>
@@ -35,9 +35,9 @@
                     <pre ng-show="request.bodyAsString">{{request.bodyAsString}}</pre>
                 </div>
             </div>
-            <div class="row half-height panel">
+            <div class="row half-height">
                 <h3 class="center">Response</h3>
-                <div class="panel-body">
+                <div>
                     <div ng-repeat="(key, value) in response.headers">
                         {{key}}: {{value}}
                     </div>

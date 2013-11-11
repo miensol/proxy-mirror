@@ -28,8 +28,7 @@ module.exports = function (grunt) {
         'grunt-rev',
         'grunt-svgmin',
         'grunt-usemin',
-        'grunt-karma',
-        'grunt-express'].forEach(function(name){
+        'grunt-karma'].forEach(function(name){
            grunt.loadNpmTasks(name)
         });
     require('time-grunt')(grunt);
@@ -41,6 +40,15 @@ module.exports = function (grunt) {
             dist: 'dist'
         },
         watch: {
+            options: {
+                livereload: true
+            },
+            html: {
+                files: ['<%= yeoman.app %>/{,*/}*.html']
+            },
+            js: {
+                files: ['<%= yeoman.app %>/scripts/{,*/}*.js']
+            },
             coffee: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
                 tasks: ['coffee:dist']
@@ -71,24 +79,6 @@ module.exports = function (grunt) {
                 ]
             }
         },
-        express: {
-            options: {
-                port: 8889,
-                hostname: 'localhost',
-                livereload: true,
-                showStack: true,
-                server: './index.js'
-            },
-            dev: {
-                options: {
-                    bases: [
-                        '.tmp',
-                        'test',
-                        '<%= yeoman.app %>'
-                    ]
-                }
-            }
-        },
         connect: {
             options: {
                 port: 8889,
@@ -97,6 +87,8 @@ module.exports = function (grunt) {
             },
             livereload: {
                 options: {
+                    port: 35729,
+                    hostname: 'localhost',
                     base: [
                         '.tmp',
                         '<%= yeoman.app %>'
@@ -105,7 +97,7 @@ module.exports = function (grunt) {
             },
             test: {
                 options: {
-                    port: 9001,
+                    port: 8889,
                     base: [
                         '.tmp',
                         'test',
@@ -373,15 +365,16 @@ module.exports = function (grunt) {
     });
 
 
-    grunt.registerTask('server-app', function (target) {
+    grunt.registerTask('server-content', function (target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'connect:dist:keepalive']);
         }
 
         grunt.task.run([
-//            'concurrent:server',
+            'clean:server',
+            'concurrent:server',
+//            'connect:livereload',
             'autoprefixer',
-            'express:dev',
             'watch'
         ]);
     });

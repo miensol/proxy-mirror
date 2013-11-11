@@ -44,8 +44,7 @@
     "karma": "~0.10.4",
     "karma-ng-html2js-preprocessor": "~0.1.0",
     "should": "~2.0.2",
-    "mocha": "~1.14.0",
-    "grunt-express": "~1.2.1"
+    "mocha": "~1.14.0"
   },
   "engines": {
     "node": ">=0.8.0"

@@ -1,3 +1,5 @@
+var express = require('express');
+
 var ProxyMirrorRun = require('./lib/run.js');
 
 var run = new ProxyMirrorRun();
@@ -7,6 +9,8 @@ run.start(function(){
     console.log('proxy-mirror started');
 });
 
-module.exports = run.httpServer;
+run.httpServer.listen(8889);
+
+
 
 
