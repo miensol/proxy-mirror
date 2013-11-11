@@ -94,7 +94,9 @@
     };
 
     proxyClient.service('socket', function ($rootScope) {
-        var socket = io.connect();
+        var socket = io.connect('/',{
+            'sync disconnect on unload': true
+        });
         return {
             on: function (eventName, callback) {
                 socket.on(eventName, function () {

@@ -32,7 +32,7 @@
                         {{key}}: {{value}}
                     </div>
                     <br />
-                    <pre>{{request.body}}</pre>
+                    <pre ng-show="request.bodyAsString">{{request.bodyAsString}}</pre>
                 </div>
             </div>
             <div class="row half-height panel">
@@ -42,7 +42,10 @@
                         {{key}}: {{value}}
                     </div>
                     <br />
-                    <pre>{{response.body}}</pre>
+                    <pre ng-show="response.bodyAsString">{{response.bodyAsString}}</pre>
+                    <div ng-show="response.displayAsIframe">
+                        <iframe ng-src="{{response.iframeSrc}}"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
