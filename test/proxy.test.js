@@ -23,16 +23,16 @@ describe('ProxyServer', function(){
 
     describe('events', function(){
 
-        describe('listen to session.start', function(){
+        describe('listen to session.request.start', function(){
             var sessions = [];
             beforeEach(function(){
                 sessions = [];
-                proxyServer.on('session.start', function(session){
+                proxyServer.on('session.request.start', function(session){
                     sessions.push(session);
                 });
             });
 
-            it('should not fire session start without a request',function(){
+            it('should not fire session request start without a request',function(){
                 sessions.should.be.empty;
             });
 
@@ -66,10 +66,10 @@ describe('ProxyServer', function(){
             beforeEach(function(){
                 startedSessions = [];
                 endedSessions = [];
-                proxyServer.on('session.start', function(session){
+                proxyServer.on('session.request.start', function(session){
                     startedSessions.push(session);
                 });
-                proxyServer.on('session.end', function(session){
+                proxyServer.on('session.response.end', function(session){
                     endedSessions.push(session);
                 });
             });
