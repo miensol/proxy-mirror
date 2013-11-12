@@ -46,7 +46,8 @@
     "karma-ng-html2js-preprocessor": "~0.1.0",
     "should": "~2.0.2",
     "mocha": "~1.14.0",
-    "connect": "~2.11.0"
+    "connect": "~2.11.0",
+    "request": "~2.27.0"
   },
   "engines": {
     "node": ">=0.8.0"
