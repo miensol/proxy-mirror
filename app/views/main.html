@@ -7,6 +7,7 @@
                 <th>#</th>
                 <th>Status</th>
                 <th>Url</th>
+                <th>Host</th>
                 <th>Method</th>
                 <th>Type</th>
             </tr>
@@ -16,7 +17,8 @@
                 ng-click="selectSession(session)">
                 <td>{{session.id}}</td>
                 <td>{{session.response.statusCode}}</td>
-                <td>{{session.request.url}}</td>
+                <td>{{session.request.urlObj.path}}</td>
+                <td>{{session.request.urlObj.host}}</td>
                 <td>{{session.request.method}}</td>
                 <td>{{session.response.contentType}}</td>
             </tr>

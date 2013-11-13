@@ -2,51 +2,58 @@
 
     var proxyClient = angular.module('proxyMirrorApp.proxyClient', []);
 
-    var Headers = function () {
+    var Request = function(){
+
+    };
+
+    var Response = function(){
         var that = this;
-        this.uniformHeaders = function () {
-            return Object.keys(this.headers).map(function (key) {
-                var headerValue = that.headers[key];
-                var newName = key.split('-').map(function (oldName) {
-                    return oldName.substring(0, 1).toUpperCase() + oldName.substring(1);
-                }).join('-');
-                return [newName, headerValue];
-            }).reduce(function (acc, cur) {
-                    acc[cur[0]] = cur[1];
-                    return acc;
-                }, {});
+        var niceContentType = function () {
+            var fullContentType = that.headers['Content-Type'] || '';
+            return fullContentType.split(';')[0] || '';
         };
+
+        this.contentType = niceContentType();
     };
 
     var Session = function (id) {
         this.id = id;
-        this.state = 'start';
+        this.state = '';
         this.request = {};
         this.response = {};
         this.requestStart = function (sessionMsg) {
+            this.state = 'request.start';
             this.request = sessionMsg.request;
-            Headers.call(this.request);
+            Request.call(this.request);
         };
         this.responseEnd = function (sessionMsg) {
+            this.state = 'response.end';
             this.response = sessionMsg.response;
-            this.response.contentType = this.niceContentType();
-            Headers.call(this.response);
+            Response.call(this.response);
         };
 
         this.requestEnd = function(sessionMsg){
+            this.state = 'request.end';
             this.request = sessionMsg.request;
-            Headers.call(this.request);
+            Request.call(this.request);
         };
 
-        this.niceContentType = function () {
-            var fullContentType = this.response.headers['content-type'] || '';
-            return fullContentType.split(';')[0] || '';
-        };
+
     };
 
     var SessionStorage = function (proxy) {
         var that = this,
-            sessionHash = {};
+            sessionHash = {},
+            limitSessionsCount = function(){
+                var removedSession = null;
+                if(that.sessions.length > 10){
+                    removedSession = that.sessions.splice(0,1)[0];
+                    if(that.selectedSession === removedSession){
+                        that.selectSession(null);
+                    }
+                }
+
+            };
         this.proxy = proxy;
         this.sessions = [];
         this.selectedSession = null;
@@ -56,6 +63,7 @@
             sessionHash[session.id] = session;
             session.requestStart(sessionMsg);
             that.sessions.push(session);
+            limitSessionsCount();
         });
         proxy.on('session.request.end', function(sessionMsg){
             var session = sessionHash[sessionMsg.id];
