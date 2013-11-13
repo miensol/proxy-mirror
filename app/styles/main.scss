@@ -14,16 +14,58 @@ iframe {
 
 $main-panel-height: 800px;
 $header-height: 26px;
-
-.panel-body {
-  overflow: auto;
-}
+$table-head-height: 37px;
 
 .sessions-panel {
   $panel-height: $main-panel-height/3;
+  $panel-body-height: $panel-height - $header-height;
   height: $panel-height;
   .panel-body {
-    height: $panel-height - $header-height;
+    height: $panel-body-height;
+  }
+  table {
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+
+  thead, tbody {
+    width: 100%;
+    display: block;
+  }
+
+  thead th {
+    font-weight: normal;
+  }
+
+  tbody {
+    height: $panel-body-height - $table-head-height;
+    overflow: auto;
+    tr :first-child {
+      padding-left: 0;
+    }
+    tr :last-child {
+      padding-right: 0;
+    }
+  }
+
+  table {
+    .narrow {
+      width: 46px;
+      max-width: 46px;
+    }
+    .medium {
+      width: 100px;
+      max-width: 100px;
+    }
+    .long {
+      width: 250px;
+      max-width: 250px;
+    }
+    td {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 }
 .details-panel {
@@ -40,8 +82,12 @@ $header-height: 26px;
 @media (min-width: $screen-md-min)  {
   .sessions-panel {
     height: $main-panel-height;
+    $panel-height: $main-panel-height - $header-height;
     .panel-body {
-      height: $main-panel-height - $header-height;
+      height: $panel-height;
+    }
+    tbody {
+      height: $panel-height - $table-head-height;
     }
   }
   .details-panel {

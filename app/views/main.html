@@ -4,23 +4,23 @@
         <table class="table panel-body">
             <thead>
             <tr>
-                <th>#</th>
-                <th>Status</th>
-                <th>Url</th>
-                <th>Host</th>
-                <th>Method</th>
-                <th>Type</th>
+                <th class="narrow">#</th>
+                <th class="narrow">Code</th>
+                <th class="long">Url</th>
+                <th class="medium">Host</th>
+                <th class="narrow">Method</th>
+                <th class="medium">Type</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="session in sessions"
                 ng-click="selectSession(session)">
-                <td>{{session.id}}</td>
-                <td>{{session.response.statusCode}}</td>
-                <td>{{session.request.urlObj.path}}</td>
-                <td>{{session.request.urlObj.host}}</td>
-                <td>{{session.request.method}}</td>
-                <td>{{session.response.contentType}}</td>
+                <td class="narrow">{{session.id}}</td>
+                <td class="narrow" >{{session.response.statusCode}}</td>
+                <td class="long" title="{{session.request.urlObj.path}}">{{session.request.urlObj.path}}</td>
+                <td class="medium">{{session.request.urlObj.host}}</td>
+                <td class="narrow">{{session.request.method}}</td>
+                <td class="medium">{{session.response.contentType}}</td>
             </tr>
             </tbody>
         </table>
