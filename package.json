@@ -47,7 +47,8 @@
     "should": "~2.0.2",
     "mocha": "~1.14.0",
     "connect": "~2.11.0",
-    "request": "~2.27.0"
+    "request": "~2.27.0",
+    "grunt-contrib-less": "~0.8.2"
   },
   "engines": {
     "node": ">=0.8.0"

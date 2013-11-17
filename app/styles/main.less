@@ -1,6 +1,4 @@
-$icon-font-path: "/bower_components/sass-bootstrap/fonts/";
-
-@import 'sass-bootstrap/lib/bootstrap';
+@import '../bower_components/bootstrap/less/bootstrap';
 
 .center {
   margin: 0 auto;
@@ -12,16 +10,16 @@ iframe {
   border: none;
 }
 
-$main-panel-height: 800px;
-$header-height: 26px;
-$table-head-height: 37px;
+@main-panel-height: 800px;
+@header-height: 26px;
+@table-head-height: 37px;
 
 .sessions-panel {
-  $panel-height: $main-panel-height/3;
-  $panel-body-height: $panel-height - $header-height;
-  height: $panel-height;
+  @panel-height: @main-panel-height/3;
+  @panel-body-height: @panel-height - @header-height;
+  height: @panel-height;
   .panel-body {
-    height: $panel-body-height;
+    height: @panel-body-height;
   }
   table {
     overflow: hidden;
@@ -38,7 +36,7 @@ $table-head-height: 37px;
   }
 
   tbody {
-    height: $panel-body-height - $table-head-height;
+    height: @panel-body-height - @table-head-height;
     overflow: auto;
     tr :first-child {
       padding-left: 0;
@@ -69,32 +67,32 @@ $table-head-height: 37px;
   }
 }
 .details-panel {
-  $panel-height: $main-panel-height*2/3;
-  height: $panel-height;
+  @panel-height: @main-panel-height*2/3;
+  height: @panel-height;
   .panel-body {
-    height: $panel-height/2 - $header-height;
+    height: @panel-height/2 - @header-height;
   }
 }
 .panel-header {
-  height: $header-height;
+  height: @header-height;
 }
 
-@media (min-width: $screen-md-min)  {
+@media (min-width: @screen-md-min)  {
   .sessions-panel {
-    height: $main-panel-height;
-    $panel-height: $main-panel-height - $header-height;
+    height: @main-panel-height;
+    @panel-height: @main-panel-height - @header-height;
     .panel-body {
-      height: $panel-height;
+      height: @panel-height;
     }
     tbody {
-      height: $panel-height - $table-head-height;
+      height: @panel-height - @table-head-height;
     }
   }
   .details-panel {
-    $panel-height:$main-panel-height/2;
-    height: $panel-height;
+    @panel-height:@main-panel-height/2;
+    height: @panel-height;
     .panel-body {
-      height: $panel-height - $header-height;
+      height: @panel-height - @header-height;
     }
   }
 }

@@ -13,12 +13,12 @@ module.exports = function (grunt) {
         'grunt-concurrent',
         'grunt-contrib-clean',
         'grunt-contrib-coffee',
-        'grunt-contrib-compass',
         'grunt-contrib-concat',
         'grunt-contrib-connect',
         'grunt-contrib-copy',
         'grunt-contrib-cssmin',
         'grunt-contrib-htmlmin',
+        'grunt-contrib-less',
 //        'grunt-contrib-imagemin',
         'grunt-contrib-jshint',
         'grunt-contrib-uglify',
@@ -57,13 +57,23 @@ module.exports = function (grunt) {
                 files: ['test/spec/{,*/}*.coffee'],
                 tasks: ['coffee:test']
             },
-            compass: {
-                files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-                tasks: ['compass:server', 'autoprefixer']
-            },
             styles: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
                 tasks: ['copy:styles', 'autoprefixer']
+            },
+            less: {
+                files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
+                tasks: ['less:server']
+            }
+        },
+        less: {
+            options: {
+                sourceMap: true
+            },
+            server : {
+                files: {
+                    '<%= yeoman.app %>/styles/main.css':'<%= yeoman.app %>/styles/main.less'
+                }
             }
         },
         autoprefixer: {
@@ -162,27 +172,6 @@ module.exports = function (grunt) {
                         ext: '.js'
                     }
                 ]
-            }
-        },
-        compass: {
-            options: {
-                sassDir: '<%= yeoman.app %>/styles',
-                cssDir: '.tmp/styles',
-                generatedImagesDir: '.tmp/images/generated',
-                imagesDir: '<%= yeoman.app %>/images',
-                javascriptsDir: '<%= yeoman.app %>/scripts',
-                fontsDir: '<%= yeoman.app %>/fonts',
-                importPath: '<%= yeoman.app %>/bower_components',
-                httpImagesPath: '/images',
-                httpGeneratedImagesPath: '/images/generated',
-                httpFontsPath: '/fonts',
-                relativeAssets: false
-            },
-            dist: {},
-            server: {
-                options: {
-                    debugInfo: true
-                }
             }
         },
         // not used since Uglify task does concat,
@@ -301,30 +290,21 @@ module.exports = function (grunt) {
                         ]
                     }
                 ]
-            },
-            styles: {
-                expand: true,
-                cwd: '<%= yeoman.app %>/styles',
-                dest: '.tmp/styles/',
-                src: '{,*/}*.css'
             }
         },
         concurrent: {
             server: [
 //                'coffee:dist',
-                'compass:server',
-                'copy:styles'
+                'less:server'
             ],
             proxy: ['server:proxy'],
             test: [
                 'coffee',
-                'compass',
-                'copy:styles'
+                'compass'
             ],
             dist: [
                 'coffee',
                 'compass:dist',
-                'copy:styles',
                 'imagemin',
                 'svgmin',
                 'htmlmin'
