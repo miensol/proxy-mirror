@@ -4,11 +4,16 @@
   margin: 0 auto;
   text-align: center;
 }
+
+.container-full {
+  width: 100%;
+}
 iframe {
   width: 100%;
   height: 100%;
   border: none;
 }
+
 
 @main-panel-height: 800px;
 @header-height: 26px;
@@ -20,50 +25,7 @@ iframe {
   height: @panel-height;
   .panel-body {
     height: @panel-body-height;
-  }
-  table {
-    overflow: hidden;
-    margin-bottom: 0;
-  }
-
-  thead, tbody {
-    width: 100%;
-    display: block;
-  }
-
-  thead th {
-    font-weight: normal;
-  }
-
-  tbody {
-    height: @panel-body-height - @table-head-height;
-    overflow: auto;
-    tr :first-child {
-      padding-left: 0;
-    }
-    tr :last-child {
-      padding-right: 0;
-    }
-  }
-
-  table {
-    .narrow {
-      width: 46px;
-      max-width: 46px;
-    }
-    .medium {
-      width: 100px;
-      max-width: 100px;
-    }
-    .long {
-      width: 250px;
-      max-width: 250px;
-    }
-    td {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
+    padding: 0;
   }
 }
 .details-panel {
@@ -71,6 +33,7 @@ iframe {
   height: @panel-height;
   .panel-body {
     height: @panel-height/2 - @header-height;
+    overflow: auto;
   }
 }
 .panel-header {

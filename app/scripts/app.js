@@ -2,6 +2,7 @@
 
 angular.module('proxyMirrorApp', [
   'proxyMirrorApp.proxyClient',
+  'ngGrid',
   'ngCookies',
   'ngResource',
   'ngSanitize',

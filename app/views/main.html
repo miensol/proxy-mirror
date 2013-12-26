@@ -1,29 +1,8 @@
 <div class="row">
     <section class="col-lg-5 col-md-5 sessions-panel">
         <h3 class="center container-height">Sessions</h3>
-        <table class="table panel-body">
-            <thead>
-            <tr>
-                <th class="narrow">#</th>
-                <th class="narrow">Code</th>
-                <th class="long">Url</th>
-                <th class="medium">Host</th>
-                <th class="narrow">Method</th>
-                <th class="medium">Type</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="session in sessions"
-                ng-click="selectSession(session)">
-                <td class="narrow">{{session.id}}</td>
-                <td class="narrow" >{{session.response.statusCode}}</td>
-                <td class="long" title="{{session.request.urlObj.path}}">{{session.request.urlObj.path}}</td>
-                <td class="medium">{{session.request.urlObj.host}}</td>
-                <td class="narrow">{{session.request.method}}</td>
-                <td class="medium">{{session.response.contentType}}</td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="panel-body" ng-grid="sessionsGrid">
+        </div>
     </section>
     <section class="col-lg-7 col-md-7 details-panel">
         <div class="row half-height">

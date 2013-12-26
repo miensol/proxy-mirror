@@ -57,10 +57,10 @@ module.exports = function (grunt) {
                 files: ['test/spec/{,*/}*.coffee'],
                 tasks: ['coffee:test']
             },
-            styles: {
-                files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-                tasks: ['copy:styles', 'autoprefixer']
-            },
+//            styles: {
+//                files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
+//                tasks: ['copy:styles', 'autoprefixer']
+//            },
             less: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
                 tasks: ['less:server']
