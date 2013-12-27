@@ -2,16 +2,16 @@
 
 angular.module('proxyMirrorApp', [
   'proxyMirrorApp.proxyClient',
+  'proxyMirrorApp.sessions',
   'ngGrid',
   'ngCookies',
   'ngResource',
   'ngSanitize',
   'ngRoute'
-])
-  .config(function ($routeProvider) {
+]).config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
+        templateUrl: 'scripts/main.html',
         controller: 'MainCtrl'
       })
       .otherwise({

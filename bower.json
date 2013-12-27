@@ -2,20 +2,23 @@
   "name": "proxy-mirror",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "~1.2.0",
+    "angular": "~1.2.4",
     "json3": "~3.2.4",
     "jquery": "~1.10.0",
     "es5-shim": "~2.1.0",
-    "angular-resource": "~1.2.0",
-    "angular-cookies": "~1.2.0",
-    "angular-sanitize": "~1.2.0",
-    "angular-route": "~1.2.0",
+    "angular-resource": "~1.2.4",
+    "angular-cookies": "~1.2.4",
+    "angular-sanitize": "~1.2.4",
+    "angular-route": "~1.2.4",
     "socket.io-client": "~0.9.16",
     "bootstrap": "~3.0.2",
     "ng-grid": "~2.0.7"
   },
   "devDependencies": {
-    "angular-mocks": "~1.2.0",
-    "angular-scenario": "~1.2.0"
+    "angular-mocks": "~1.2.4",
+    "angular-scenario": "~1.2.4"
+  },
+  "resolutions": {
+    "angular": "~1.2.4"
   }
 }
