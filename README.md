@@ -33,3 +33,4 @@ and configure your system to use proxy which is listening at `localhost:8888` th
 - mac - `./setup-proxy.sh -enable/-disable`
 
 To see and sniff around http traffic navigate to `http://localhost:8889` and you should be able to see the following:
+![Screenshot](https://raw.github.com/miensol/proxy-mirror/master/misc/screenshot.png)
