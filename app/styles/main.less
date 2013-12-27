@@ -35,6 +35,12 @@ iframe {
     height: @panel-height/2 - @header-height;
     overflow: auto;
   }
+
+  .accordion-heading {
+    font-size: 2em;
+    font-weight: bold;
+    .text-center;
+  }
 }
 .panel-header {
   height: @header-height;
@@ -58,4 +64,8 @@ iframe {
       height: @panel-height - @header-height;
     }
   }
+}
+
+[ng-click] {
+  cursor: pointer;
 }

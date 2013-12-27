@@ -3,28 +3,28 @@
         <div ng-include="'scripts/sessions/sessions.html'"/>
     </section>
     <section class="col-lg-7 col-md-7 details-panel">
-        <div class="row half-height">
-            <h3 class="center panel-header">Request</h3>
-            <div class="panel-body">
-                <div ng-repeat="(key, value) in request.headers">
-                    {{key}}: {{value}}
+        <accordion close-others="false">
+            <accordion-group heading="Request" is-open="true">
+                <div class="panel-body">
+                    <div ng-repeat="(key, value) in request.headers">
+                        {{key}}: {{value}}
+                    </div>
+                    <br/>
+                    <pre ng-show="request.bodyAsString">{{request.bodyAsString}}</pre>
                 </div>
-                <br/>
-                <pre ng-show="request.bodyAsString">{{request.bodyAsString}}</pre>
-            </div>
-        </div>
-        <div class="row half-height">
-            <h3 class="center panel-header">Response</h3>
-            <div class="panel-body">
-                <div ng-repeat="(key, value) in response.headers">
-                    {{key}}: {{value}}
+            </accordion-group>
+            <accordion-group heading="Response" is-open="true">
+                <div class="panel-body">
+                    <div ng-repeat="(key, value) in response.headers">
+                        {{key}}: {{value}}
+                    </div>
+                    <br/>
+                    <pre ng-show="response.bodyAsString">{{response.bodyAsString}}</pre>
+                    <div ng-show="response.displayAsIframe">
+                        <iframe ng-src="{{response.iframeSrc}}"></iframe>
+                    </div>
                 </div>
-                <br/>
-                <pre ng-show="response.bodyAsString">{{response.bodyAsString}}</pre>
-                <div ng-show="response.displayAsIframe">
-                    <iframe ng-src="{{response.iframeSrc}}"></iframe>
-                </div>
-            </div>
-        </div>
+            </accordion-group>
+        </accordion>
     </section>
 </div>
