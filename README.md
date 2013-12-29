@@ -10,7 +10,7 @@ For Windows there is an invaluable [Fiddler](http://fiddler2.com/) and while its
 Features
 -----
 
-Right now proxy-mirror only handles http and displayes request response list with a simple detailed view. 
+proxy-mirror handles http and https using self signed certificate and displayes request response list with a simple detailed view.
 *If only a day would be longer...* 
 
 Installation &amp; Usage
