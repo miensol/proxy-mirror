@@ -6,26 +6,22 @@
         <accordion close-others="false">
             <accordion-group heading="Request" is-open="true">
                 <div class="panel-body">
-                    <table class="table table-headers">
-                        <tbody>
-                            <tr ng-repeat="(key, value) in request.headers">
-                                <td>{{key}}:</td><td>{{value}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <dl class="request-summary">
+                        <div><dt>Request URL</dt><dd>{{request.urlObj.href}}</dd></div>
+                        <div><dt>Request Method</dt><dd>{{request.method}}</dd></div>
+                    </dl>
+                    <pm-headers-table headers="request.headers"></pm-headers-table>
                     <br/>
                     <pre ng-show="request.bodyAsString">{{request.bodyAsString}}</pre>
                 </div>
             </accordion-group>
             <accordion-group heading="Response" is-open="true">
                 <div class="panel-body">
-                    <table class="table table-headers">
-                        <tbody>
-                        <tr ng-repeat="(key, value) in response.headers">
-                            <td>{{key}}:</td><td>{{value}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <dl class="response-summary">
+                        <div><dt>Status</dt><dd>{{response.statusCode}}</dd></div>
+                        <div><dt>Http Status</dt><dd>{{response.statusMsg}}</dd></div>
+                    </dl>
+                    <pm-headers-table headers="response.headers"></pm-headers-table>
                     <br/>
                     <pre ng-show="response.bodyAsString">{{response.bodyAsString}}</pre>
                     <div ng-show="response.displayAsIframe">
