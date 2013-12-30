@@ -7,6 +7,7 @@
                     ng-class="classForView(view)"
                     ng-click="selectView(view)">{{view.title}}</button>
         </div>
+        <pm-compressed-body-switch message="request"></pm-compressed-body-switch>
     </div>
     <div pm-include="selectedView.templateUrl" class="details-content" child-init="selectedView.init"></div>
 </div>

@@ -204,4 +204,15 @@
         SelectView.call($scope);
     });
 
+    module.directive('pmCompressedBodySwitch', function(){
+        return {
+            restrict:'EA',
+            replace: true,
+            scope: {
+                message:'='
+            },
+            templateUrl: 'scripts/sessionDetails/compressedBodySwitch.html'
+        };
+    });
+
 }());

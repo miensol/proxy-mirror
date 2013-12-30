@@ -1,0 +1,4 @@
+<button class="btn btn-sm btn-warning"
+        ng-show="message.isBodyCompressed()"
+        ng-class="{true:'active',false:''}[message.isSwitchedToUncompressed()]"
+        ng-click="message.toggleUncompressedMode()"><span class="glyphicon glyphicon-check"></span> Decompress</button>
