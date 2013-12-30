@@ -22,8 +22,8 @@
 
     var IframeSrcFromBody = function($sce){
         var headers = this.headers || {};
-        this.displayAsIframe = !!this.bodyAsBase64;
-        this.iframeSrc = ['data:', headers['Content-Type'], ';base64, ', this.bodyAsBase64].join('');
+        this.displayAsIframe = !!this.body.asBase64;
+        this.iframeSrc = ['data:', headers['Content-Type'], ';base64, ', this.body.asBase64].join('');
         this.iframeSrc = $sce.trustAsResourceUrl(this.iframeSrc);
     };
 
@@ -33,8 +33,14 @@
         this.displayAsIframe = false;
         this.iframeSrc = null;
         this.headers = null;
-        this.bodyAsBase64 = null;
-        this.bodyAsString = null;
+        this.body = {
+            asBase64: null,
+            asString: null
+        };
+        this.httpVersion = null;
+        this.url = null;
+        this.urlObj = null;
+        this.method = null;
     };
 
     var RequestViewModel = function($sce){
