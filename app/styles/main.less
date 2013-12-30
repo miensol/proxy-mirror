@@ -17,15 +17,29 @@
 .details-panel {
   @panel-height: @main-panel-height*2/3;
   height: @panel-height;
+  @panel-body-height: @panel-height/2 - @header-height;
   .panel-body {
-    height: @panel-height/2 - @header-height;
-    overflow: auto;
+    height: @panel-body-height;
+    padding: 0;
   }
 
   .accordion-heading {
     font-size: 2em;
     font-weight: bold;
     .text-center;
+  }
+
+  .btn-group {
+    margin-bottom: 16px;
+  }
+
+  .details-content {
+    overflow: auto;
+    @details-height: @panel-body-height - 16 - 34 - 5;
+    height: @details-height;
+    iframe {
+      height: @details-height - 5;
+    }
   }
 }
 
@@ -36,20 +50,26 @@
 @media (min-width: @screen-md-min) {
   .sessions-panel {
     height: @main-panel-height;
-    @panel-height: @main-panel-height - @header-height;
+    @panel-body-height: @main-panel-height - @header-height;
     .panel-body {
-      height: @panel-height;
-    }
-    tbody {
-      height: @panel-height - @table-head-height;
+      height: @panel-body-height;
     }
   }
 
   .details-panel {
     @panel-height: @main-panel-height/2;
     height: @panel-height;
+    @panel-body-height: @panel-height - @header-height;
     .panel-body {
-      height: @panel-height - @header-height;
+      height: @panel-body-height;
+    }
+
+    .details-content {
+      @details-height: @panel-body-height - 16 - 34 - 5;
+      height: @details-height;
+      iframe {
+        height: @details-height - 5;
+      }
     }
   }
 }

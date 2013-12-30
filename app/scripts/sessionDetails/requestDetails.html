@@ -1,9 +1,12 @@
 <div ng-controller="RequestDetailsCtrl">
-    <dl class="request-summary">
-        <div><dt>Request URL</dt><dd>{{request.urlObj.href}}</dd></div>
-        <div><dt>Request Method</dt><dd>{{request.method}}</dd></div>
-    </dl>
-    <pm-headers-table headers="request.headers"></pm-headers-table>
-    <br/>
-    <pre ng-show="request.bodyAsString">{{request.bodyAsString}}</pre>
+    <div class="center">
+        <div class="btn-group">
+            <button class="btn btn-default"
+                    type="button"
+                    ng-repeat="view in availableViews"
+                    ng-class="classForView(view)"
+                    ng-click="selectView(view)">{{view.title}}</button>
+        </div>
+    </div>
+    <div pm-include="selectedView.templateUrl" class="details-content"></div>
 </div>

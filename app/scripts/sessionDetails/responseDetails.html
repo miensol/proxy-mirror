@@ -1,14 +1,12 @@
 <div ng-controller="ResponseDetailsCtrl">
-    <dl class="response-summary">
-        <div>
-            <dt>Status</dt>
-            <dd>{{response.statusMsg}}</dd>
+    <div class="center">
+        <div class="btn-group">
+            <button class="btn btn-default"
+                    type="button"
+                    ng-repeat="view in availableViews"
+                    ng-class="classForView(view)"
+                    ng-click="selectView(view)">{{view.title}}</button>
         </div>
-    </dl>
-    <pm-headers-table headers="response.headers"></pm-headers-table>
-    <br/>
-    <pre ng-show="response.bodyAsString">{{response.bodyAsString}}</pre>
-    <div ng-show="response.displayAsIframe">
-        <iframe ng-src="{{response.iframeSrc}}"></iframe>
     </div>
+    <div pm-include="selectedView.templateUrl" class="details-content" child-init="selectedView.init"></div>
 </div>
