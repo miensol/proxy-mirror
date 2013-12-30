@@ -83,6 +83,7 @@
         this.loadRequest = function(request){
             ClearCommonMessageProperties.call(this);
             angular.extend(this, request);
+            IframeSrcFromBody.call(this, $sce, this.bodyAsBase64());
         }
     };
 
@@ -92,6 +93,7 @@
         this.loadResponse = function(response){
             ClearCommonMessageProperties.call(this);
             angular.extend(this, response);
+            IframeSrcFromBody.call(this, $sce, this.bodyAsBase64());
         }
     };
 
