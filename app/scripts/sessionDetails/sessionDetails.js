@@ -20,10 +20,10 @@
         });
     };
 
-    var IframeSrcFromBody = function($sce){
+    var IframeSrcFromBody = function($sce, asBase64){
         var headers = this.headers || {};
-        this.displayAsIframe = !!this.body.asBase64;
-        this.iframeSrc = ['data:', headers['Content-Type'], ';base64, ', this.body.asBase64].join('');
+        this.displayAsIframe = !!asBase64;
+        this.iframeSrc = ['data:', headers['Content-Type'], ';base64, ', asBase64].join('');
         this.iframeSrc = $sce.trustAsResourceUrl(this.iframeSrc);
     };
 
@@ -35,7 +35,9 @@
         this.headers = null;
         this.body = {
             asBase64: null,
-            asString: null
+            asString: null,
+            asUncompressedBase64: null,
+            asUncompressedString: null
         };
         this.httpVersion = null;
         this.url = null;
@@ -43,21 +45,53 @@
         this.method = null;
     };
 
+    var MessageBody = function($sce){
+        var that = this,
+            isSwitched = false;
+        that.isBodyCompressed = function(){
+            var headers = that.headers || {};
+            var contentEncoding = headers['Content-Encoding'] || '';
+            return contentEncoding == 'gzip' || contentEncoding == 'deflate';
+        };
+        that.isSwitchedToUncompressed = function(){
+            return isSwitched;
+        };
+        that.bodyAsBase64 = function(){
+            if(isSwitched){
+                return that.body.asUncompressedBase64;
+            } else {
+                return that.body.asBase64;
+            }
+        };
+        that.bodyAsString = function(){
+            if(isSwitched){
+                return that.body.asUncompressedString;
+            } else {
+                return that.body.asString;
+            }
+        };
+        that.toggleUncompressedMode = function(){
+            isSwitched = !isSwitched;
+            IframeSrcFromBody.call(this, $sce, that.bodyAsBase64());
+        };
+        IframeSrcFromBody.call(that, $sce, that.bodyAsBase64());
+    };
+
     var RequestViewModel = function($sce){
         ClearCommonMessageProperties.call(this);
+        MessageBody.call(this, $sce);
         this.loadRequest = function(request){
             ClearCommonMessageProperties.call(this);
             angular.extend(this, request);
-            IframeSrcFromBody.call(this, $sce);
         }
     };
 
     var ResponseViewModel = function ($sce) {
         ClearCommonMessageProperties.call(this);
+        MessageBody.call(this, $sce);
         this.loadResponse = function(response){
             ClearCommonMessageProperties.call(this);
             angular.extend(this, response);
-            IframeSrcFromBody.call(this, $sce);
         }
     };
 
