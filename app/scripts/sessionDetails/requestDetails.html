@@ -8,5 +8,5 @@
                     ng-click="selectView(view)">{{view.title}}</button>
         </div>
     </div>
-    <div pm-include="selectedView.templateUrl" class="details-content"></div>
+    <div pm-include="selectedView.templateUrl" class="details-content" child-init="selectedView.init"></div>
 </div>

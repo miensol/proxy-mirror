@@ -32,8 +32,8 @@
                             }
                         };
 
-                        scope.$watch(srcExp, function pmIncludeWatchAction(src) {
-//                        scope.$watch($sce.parseAsResourceUrl(srcExp), function ngIncludeWatchAction(src) {
+//                        scope.$watch(srcExp, function pmIncludeWatchAction(src) {
+                        scope.$watch($sce.parseAsResourceUrl(srcExp), function ngIncludeWatchAction(src) {
                             var afterAnimation = function() {
                                 if (angular.isDefined(autoScrollExp) && (!autoScrollExp || scope.$eval(autoScrollExp))) {
                                     $anchorScroll();
