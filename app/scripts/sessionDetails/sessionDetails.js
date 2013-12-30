@@ -143,7 +143,7 @@
                 {
                     title: 'Body as Text',
                     templateUrl: 'scripts/sessionDetails/bodyAsString.html',
-                    visible: !!$scope.request.bodyAsString,
+                    visible: !!$scope.request.bodyAsString(),
                     init: function ($childScope) {
                         $childScope.message = $scope.request;
                     }
@@ -181,7 +181,7 @@
                 {
                     title: 'Body as Text',
                     templateUrl: 'scripts/sessionDetails/bodyAsString.html',
-                    visible: !!$scope.response.bodyAsString,
+                    visible: !!$scope.response.bodyAsString(),
                     init: function ($childScope) {
                         $childScope.message = $scope.response;
                     }
