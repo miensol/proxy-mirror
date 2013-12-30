@@ -6,27 +6,12 @@
         <accordion close-others="false">
             <accordion-group heading="Request" is-open="true">
                 <div class="panel-body">
-                    <dl class="request-summary">
-                        <div><dt>Request URL</dt><dd>{{request.urlObj.href}}</dd></div>
-                        <div><dt>Request Method</dt><dd>{{request.method}}</dd></div>
-                    </dl>
-                    <pm-headers-table headers="request.headers"></pm-headers-table>
-                    <br/>
-                    <pre ng-show="request.bodyAsString">{{request.bodyAsString}}</pre>
+                    <pm-request-details></pm-request-details>
                 </div>
             </accordion-group>
             <accordion-group heading="Response" is-open="true">
                 <div class="panel-body">
-                    <dl class="response-summary">
-                        <div><dt>Status</dt><dd>{{response.statusCode}}</dd></div>
-                        <div><dt>Http Status</dt><dd>{{response.statusMsg}}</dd></div>
-                    </dl>
-                    <pm-headers-table headers="response.headers"></pm-headers-table>
-                    <br/>
-                    <pre ng-show="response.bodyAsString">{{response.bodyAsString}}</pre>
-                    <div ng-show="response.displayAsIframe">
-                        <iframe ng-src="{{response.iframeSrc}}"></iframe>
-                    </div>
+                    <pm-response-details></pm-response-details>
                 </div>
             </accordion-group>
         </accordion>

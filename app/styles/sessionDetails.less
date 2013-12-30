@@ -1,0 +1,29 @@
+@import "global";
+
+.table-headers {
+  tbody tr {
+    border: none;
+    & > td {
+      padding: 5px;
+      border-top: none;
+    }
+    & :first-child {
+      white-space: nowrap;
+      text-align: right;
+      color: @gray-light;
+    }
+  }
+  margin: 0;
+}
+
+.request-summary, .response-summary {
+  dt, dd {
+    display: inline-block;
+  }
+  dt {
+    margin-right: 15px;
+    &:after {
+      content: ':';
+    }
+  }
+}

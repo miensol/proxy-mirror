@@ -72,7 +72,7 @@ module.exports = function (grunt) {
             },
             server : {
                 files: {
-                    '<%= yeoman.app %>/styles/main.css':'<%= yeoman.app %>/styles/main.less'
+                    '<%= yeoman.app %>/styles/application.css':'<%= yeoman.app %>/styles/application.less'
                 }
             }
         },

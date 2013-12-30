@@ -1,0 +1,14 @@
+<div ng-controller="ResponseDetailsCtrl">
+    <dl class="response-summary">
+        <div>
+            <dt>Status</dt>
+            <dd>{{response.statusMsg}}</dd>
+        </div>
+    </dl>
+    <pm-headers-table headers="response.headers"></pm-headers-table>
+    <br/>
+    <pre ng-show="response.bodyAsString">{{response.bodyAsString}}</pre>
+    <div ng-show="response.displayAsIframe">
+        <iframe ng-src="{{response.iframeSrc}}"></iframe>
+    </div>
+</div>

@@ -9,7 +9,8 @@ angular.module('proxyMirrorApp', [
         'ui.bootstrap',
         'proxyMirrorApp.proxyClient',
         'proxyMirrorApp.sessions',
-        'proxyMirrorApp.headers'
+        'proxyMirrorApp.headers',
+        'proxyMirrorApp.sessionDetails'
     ]).config(function ($routeProvider) {
         $routeProvider
             .when('/', {

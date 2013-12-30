@@ -1,19 +1,4 @@
-@import '../bower_components/bootstrap/less/bootstrap';
-
-.center {
-  margin: 0 auto;
-  text-align: center;
-}
-
-.container-full {
-  width: 100%;
-}
-
-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
+@import "global";
 
 @main-panel-height: 800px;
 @header-height: 26px;
@@ -73,30 +58,3 @@ iframe {
   cursor: pointer;
 }
 
-.table-headers {
-  tbody tr {
-    border: none;
-    & > td {
-      padding: 5px;
-      border-top: none;
-    }
-    & :first-child {
-      white-space: nowrap;
-      text-align: right;
-      color: @gray-light;
-    }
-  }
-  margin: 0;
-}
-
-.request-summary, .response-summary {
-  dt, dd {
-    display: inline-block;
-  }
-  dt {
-    margin-right: 15px;
-    &:after {
-      content: ':';
-    }
-  }
-}
