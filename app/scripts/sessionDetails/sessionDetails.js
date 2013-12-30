@@ -20,12 +20,39 @@
         });
     };
 
-    var ResponseViewModel = function (response, $sce) {
-        angular.extend(this, response);
+    var IframeSrcFromBody = function($sce){
         var headers = this.headers || {};
         this.displayAsIframe = !!this.bodyAsBase64;
         this.iframeSrc = ['data:', headers['Content-Type'], ';base64, ', this.bodyAsBase64].join('');
         this.iframeSrc = $sce.trustAsResourceUrl(this.iframeSrc);
+    };
+
+    var ClearCommonMessageProperties = function(){
+        this.statusCode = null;
+        this.statusMsg = null;
+        this.displayAsIframe = false;
+        this.iframeSrc = null;
+        this.headers = null;
+        this.bodyAsBase64 = null;
+        this.bodyAsString = null;
+    };
+
+    var RequestViewModel = function($sce){
+        ClearCommonMessageProperties.call(this);
+        this.loadRequest = function(request){
+            ClearCommonMessageProperties.call(this);
+            angular.extend(this, request);
+            IframeSrcFromBody.call(this, $sce);
+        }
+    };
+
+    var ResponseViewModel = function ($sce) {
+        ClearCommonMessageProperties.call(this);
+        this.loadResponse = function(response){
+            ClearCommonMessageProperties.call(this);
+            angular.extend(this, response);
+            IframeSrcFromBody.call(this, $sce);
+        }
     };
 
     var SelectView = function () {
@@ -43,10 +70,10 @@
                 });
             var viewToSelect = $scope.availableViews[0];
             if ($scope.selectedView) {
-                //TODO: need to reload views properly, not sure how yet
-//                viewToSelect = $scope.availableViews.filter(function(view){
-//                    return view.title === $scope.selectedView.title;
-//                })[0] || viewToSelect;
+                //TODO: this only works because we're referencing responseviewmodel and requestviewmodel which are the same
+                viewToSelect = $scope.availableViews.filter(function(view){
+                    return view.title === $scope.selectedView.title;
+                })[0] || viewToSelect;
             }
             $scope.selectView(viewToSelect);
         };
@@ -62,8 +89,8 @@
         };
     };
 
-    module.controller('RequestDetailsCtrl', function ($scope, sessionStorage) {
-        $scope.request = null;
+    module.controller('RequestDetailsCtrl', function ($scope,$sce, sessionStorage) {
+        $scope.request = new RequestViewModel($sce);
         var updateAvailableViews = function () {
             var availableViews = [
                 {
@@ -76,14 +103,14 @@
                     templateUrl: 'scripts/sessionDetails/bodyAsString.html',
                     visible: !!$scope.request.bodyAsString,
                     init: function ($childScope) {
-                        $childScope.bodyAsString = $scope.request.bodyAsString;
+                        $childScope.message = $scope.request;
                     }
                 }
             ];
             $scope.updateAvailableViews(availableViews);
         };
         watchForSelectedSession($scope, sessionStorage, function (session) {
-            $scope.request = session.request;
+            $scope.request.loadRequest(session.request);
             updateAvailableViews();
         });
 
@@ -99,7 +126,7 @@
     });
 
     module.controller('ResponseDetailsCtrl', function ($scope, $sce, sessionStorage) {
-        $scope.response = null;
+        $scope.response = new ResponseViewModel($sce);
         var updateAvailableViews = function () {
             var availableViews = [
                 {
@@ -114,7 +141,7 @@
                     templateUrl: 'scripts/sessionDetails/bodyAsString.html',
                     visible: !!$scope.response.bodyAsString,
                     init: function ($childScope) {
-                        $childScope.bodyAsString = $scope.response.bodyAsString;
+                        $childScope.message = $scope.response;
                     }
                 },
                 {
@@ -122,7 +149,7 @@
                     templateUrl: 'scripts/sessionDetails/bodyAsIframe.html',
                     visible: $scope.response.displayAsIframe,
                     init: function ($childScope) {
-                        $childScope.iframeSrc = $scope.response.iframeSrc;
+                        $childScope.message  = $scope.response;
                     }
                 }
             ];
@@ -130,7 +157,7 @@
         };
 
         watchForSelectedSession($scope, sessionStorage, function (session) {
-            $scope.response = new ResponseViewModel(session.response, $sce);
+            $scope.response.loadResponse(session.response);
             updateAvailableViews();
         });
 
