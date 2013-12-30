@@ -42,11 +42,12 @@
     };
 
     var SessionStorage = function (proxy) {
-        var that = this,
+        var limit = 1000,
+            that = this,
             sessionHash = {},
             limitSessionsCount = function(){
                 var removedSession = null;
-                if(that.sessions.length > 100){
+                if(that.sessions.length > limit){
                     removedSession = that.sessions.splice(0,1)[0];
                     if(that.selectedSession === removedSession){
                         that.selectSession(null);
