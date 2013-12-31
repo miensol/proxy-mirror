@@ -3,7 +3,7 @@ proxy-mirror
 
 proxy-mirror is a very simple http sniffer running on node. 
 
-While [Charles](http://www.charlesproxy.com/), [HTTP Scoop](http://www.tuffcode.com/) work well and they are worth the price I think it's still usefull to have **a free** alternative. 
+While [Charles](http://www.charlesproxy.com/), [HTTP Scoop](http://www.tuffcode.com/) work well and they are worth the price I think it's still useful to have **a free** alternative that hopefully will be easier to use than [mitmproxy](http://mitmproxy.org/).
 
 For Windows there is an invaluable [Fiddler](http://fiddler2.com/) and while its possible to use it from Mac or Linux it seems to me that running a virtual machine just for it is an overkill.
 
@@ -32,7 +32,7 @@ and configure your system to use proxy which is listening at `localhost:8888` th
 - windows - `./setup-proxy.ps1 -Enable/-Disable`
 - mac - `./setup-proxy.sh -enable/-disable`
 
-To see and sniff around http traffic navigate to `http://localhost:8889` and you should be able to see the following:
+To see and sniff around http traffic navigate to `http://proxy-mirror:8889` and you should be able to see the following:
 ![Screenshot Landscape](https://raw.github.com/miensol/proxy-mirror/master/misc/screenshot-landscape.png)
 
 or if you prefer smaller window
