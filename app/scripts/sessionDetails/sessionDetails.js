@@ -47,32 +47,37 @@
 
     var MessageBody = function($sce){
         var that = this,
-            isSwitched = false;
+            isUncompressed = false;
         that.isBodyCompressed = function(){
             var headers = that.headers || {};
             var contentEncoding = headers['Content-Encoding'] || '';
             return contentEncoding == 'gzip' || contentEncoding == 'deflate';
         };
         that.isSwitchedToUncompressed = function(){
-            return isSwitched;
+            return isUncompressed;
         };
         that.bodyAsBase64 = function(){
-            if(isSwitched){
+            if(isUncompressed){
                 return that.body.asUncompressedBase64;
             } else {
                 return that.body.asBase64;
             }
         };
         that.bodyAsString = function(){
-            if(isSwitched){
+            if(isUncompressed){
                 return that.body.asUncompressedString;
             } else {
                 return that.body.asString;
             }
         };
         that.toggleUncompressedMode = function(){
-            isSwitched = !isSwitched;
+            isUncompressed = !isUncompressed;
             IframeSrcFromBody.call(this, $sce, that.bodyAsBase64());
+        };
+        that.toggleUncompressedModeToHaveBody = function(){
+            if(isUncompressed && !that.isBodyCompressed()){
+                that.toggleUncompressedMode();
+            }
         };
         IframeSrcFromBody.call(that, $sce, that.bodyAsBase64());
     };
@@ -93,6 +98,7 @@
         this.loadResponse = function(response){
             ClearCommonMessageProperties.call(this);
             angular.extend(this, response);
+            this.toggleUncompressedModeToHaveBody();
             IframeSrcFromBody.call(this, $sce, this.bodyAsBase64());
         }
     };
