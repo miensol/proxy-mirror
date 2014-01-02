@@ -87,6 +87,12 @@
             return false;
         };
 
+        this.clearSessions = function(){
+            this.selectSession(null);
+            this.sessions.length = 0;
+            sessionHash = {};
+        };
+
     };
 
     var ProxyConnection = function (socket) {

@@ -1,5 +1,5 @@
 (function(){
-    var module = angular.module('proxyMirrorApp.sessions',[]);
+    var module = angular.module('proxyMirrorApp.sessions',['proxyMirrorApp.commands']);
 
     module.controller('SessionsCtrl', function($scope, $sce, sessionStorage){
         $scope.sessions = sessionStorage.sessions;
@@ -42,6 +42,15 @@
             if(selectedSession){
                 $scope.selectSession(selectedSession);
             }
+        });
+    });
+
+
+    module.config(function(commandsProvider){
+        commandsProvider.registerShortcut('ctrl+shift+del', function(sessionStorage){
+            this.run = function(){
+                sessionStorage.clearSessions();
+            };
         });
     });
 

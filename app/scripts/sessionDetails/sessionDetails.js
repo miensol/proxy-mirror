@@ -13,11 +13,7 @@
     var watchForSelectedSession = function ($scope, sessionStorage, callback) {
         $scope.$watch(function () {
             return sessionStorage.selectedSession;
-        }, function (session) {
-            if (session) {
-                callback(session);
-            }
-        });
+        }, callback);
     };
 
     var IframeSrcFromBody = function($sce, asBase64){
@@ -90,6 +86,9 @@
             angular.extend(this, request);
             IframeSrcFromBody.call(this, $sce, this.bodyAsBase64());
         }
+        this.clear = function(){
+            ClearCommonMessageProperties.call(this);
+        }
     };
 
     var ResponseViewModel = function ($sce) {
@@ -100,6 +99,9 @@
             angular.extend(this, response);
             this.toggleUncompressedModeToHaveBody();
             IframeSrcFromBody.call(this, $sce, this.bodyAsBase64());
+        }
+        this.clear = function(){
+            ClearCommonMessageProperties.call(this);
         }
     };
 
@@ -158,7 +160,11 @@
             $scope.updateAvailableViews(availableViews);
         };
         watchForSelectedSession($scope, sessionStorage, function (session) {
-            $scope.request.loadRequest(session.request);
+            if(session){
+                $scope.request.loadRequest(session.request);
+            } else {
+                $scope.request.clear();
+            }
             updateAvailableViews();
         });
 
@@ -205,7 +211,12 @@
         };
 
         watchForSelectedSession($scope, sessionStorage, function (session) {
-            $scope.response.loadResponse(session.response);
+            if(session){
+                $scope.response.loadResponse(session.response);
+            } else {
+                $scope.response.clear();
+            }
+
             updateAvailableViews();
         });
 
