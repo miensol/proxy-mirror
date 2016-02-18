@@ -1,7 +1,7 @@
 proxy-mirror
 ============
 
-proxy-mirror is a very simple http sniffer running on node. 
+proxy-mirror is a very simple http sniffer running on node.
 
 While [Charles](http://www.charlesproxy.com/), [HTTP Scoop](http://www.tuffcode.com/) work well and they are worth the price I think it's still useful to have **a free** alternative that hopefully will be easier to use than [mitmproxy](http://mitmproxy.org/).
 
@@ -11,7 +11,7 @@ Features
 -----
 
 proxy-mirror handles http and https using self signed certificate and displayes request response list with a simple detailed view.
-*If only a day would be longer...* 
+*If only a day would be longer...*
 
 Installation &amp; Usage
 -----
@@ -21,6 +21,14 @@ git clone git@github.com:miensol/proxy-mirror.git
 cd proxy-mirror
 npm install
 bower install
+```
+
+You will need to generate certificates and move them into a `cert` folder:
+
+```bash
+./setup-certificate.sh
+mkdir cert
+mv proxy-mirror.* cert/
 ```
 
 You'll then need to start the proxy
@@ -37,4 +45,3 @@ To see and sniff around http traffic navigate to `http://proxy-mirror:8889` and 
 
 or if you prefer smaller window
 ![Screenshot Portrait](https://raw.github.com/miensol/proxy-mirror/master/misc/screenshot-portrait.png)
-
